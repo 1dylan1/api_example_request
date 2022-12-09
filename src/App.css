@@ -1,0 +1,9 @@
+.App {
+  justify-content: center;
+  text-align: center;
+}
+
+.App img {
+  display:block;
+  margin: auto;
+}

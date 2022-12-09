@@ -6,7 +6,7 @@ const getUserPath = "/api/user/";
 class userRequests {
 
     getUser(id) {
-        return axios.get(urls.getURL() + id);
+        return axios.get(urls.getURL() + id );
     }
 }
 

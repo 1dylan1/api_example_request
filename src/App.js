@@ -1,23 +1,26 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import userRequests from './requests/userRequests';
+import { Badge } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Image, Heading } from '@chakra-ui/react'
 /*
  * Do NOT use class based components, use functional components instead. (Class based are outdated and 'legacy'.) You'll find it much easier to make things with functional components.
  * Use hooks to manage state and side effects. Keep in mind re-renders occurr on updates to state.
  * Use axios to make requests to the API.
- * Build your components with react-bootstrap, not reactstrap. https://react-bootstrap.github.io/ 
+ * Build your components with react-bootstrap, not reactstrap. https://react-bootstrap.github.io/ ChakraUI is also a nice UI library for a first project (but does have default CSS and a setup)
  * The 'official' react docs are outdated, they now update the beta docs instead. (https://beta.reactjs.org/)
 */
 function App() {
 
-  var dummyEmployee = {
+  var dummyItem = {
     id: -1,
-    name: "John Doe",
-    salary: 0,
-    age: 0
+    src: "../public/logo192.png",
+    name: "React-Ball",
+    description: "This is my react pokemon item",
+    cost: -1
   }
 
-  const [user, setUser] = useState(dummyEmployee); 
+  const [item, setItem] = useState(dummyItem); 
   const [loading, setLoading] = useState(true);
   const [id, setId] = useState(1);
 
@@ -26,16 +29,18 @@ function App() {
     userRequests.getUser(randomNum).then((response) => {
         console.log("response.data:");
         console.log(response.data);
-        console.log("response.data.data");
-        console.log(response.data.data.id);
-        var employee = {
-          id: response.data.data.id,
-          name: response.data.data.employee_name,
-          salary: response.data.data.employee_salary,
-          age: response.data.data.employee_age
+        console.log("name:");
+        console.log(response.data.name);
+
+        var temp = {
+          id: randomNum,
+          name: response.data.name,
+          src: response.data.sprites.default,
+          description: response.data.flavor_text_entries[3].text,
+          cost: response.data.cost
         }
-       // console.log(employee);
-        setUser(employee); //set the user state to the employee object
+
+        setItem(temp);
     })
       .catch((error) => {
         console.log(error);
@@ -50,10 +55,19 @@ function App() {
       <div className="loading">{loading ? "Loading..." : ""}</div>
       {loading === true ? null : 
       <div>
-        <h1>id: {user.id}</h1>
-        <h1>name: {user.name}</h1>
-        <h1>salary: {user.salary}</h1>
-        <h1>age: {user.age}</h1>
+        <Card maxW='sm'>
+          <CardBody>
+            <Image alt='item-icon' width={200} size={200} src={item.src}/>
+            <Heading>
+              <Badge colorScheme='green'>name</Badge> 
+              <h1>{item.name}</h1>
+            </Heading>
+            <Badge colorScheme='purple'>description</Badge>
+            <h3>{item.description}</h3>
+            <Badge colorScheme='red'>cost</Badge>
+            <h3>{item.cost}</h3>
+          </CardBody>
+        </Card>
       </div>
       }
 
