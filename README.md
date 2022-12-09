@@ -1,3 +1,12 @@
+Simple React project that generates random pokemon balls called from the PokeAPI:
+
+
+
+https://user-images.githubusercontent.com/69823133/206813035-7b13df45-5edf-4811-a23a-7ce1247756d2.mp4
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
